@@ -1,6 +1,18 @@
 #!/bin/bash
 
 
+#Determine which shell
+SHELL=$(which $SHELL)
+if [ $SHELL == "/bin/bash" ]; then
+  SHELL=bash
+fi
+if [ $SHELL == "/bin/zsh" ]; then
+  SHELL=zsh
+fi
+
+echo $SHELL
+
+
 #Homebrew
 if ! which brew > /dev/null; then
 	read -p "Homebrew is a package manager used for installing dependencies and is required for running the remainder of this script.  Continue and install Homebrew? [y/N] " response
@@ -22,10 +34,10 @@ if ! which pyenv; then
 	if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
     echo -e "Installing pyenv\n....."
     brew install pyenv
-    echo -e "Setting zshrc configs for pyenv\n....."
-    echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
-    echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
-    echo 'eval "$(pyenv init -)"' >> ~/.zshrc
+    echo -e "Setting ${SHELL}rc configs for pyenv\n....."
+    echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.${SHELL}rc
+    echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.${SHELL}rc
+    echo 'eval "$(pyenv init -)"' >> ~/.${SHELL}rc
   else
     echo -e "Skipping installing pyenv\n..."
   fi
@@ -49,9 +61,9 @@ fi
 
 
 #aliases
-echo "" >> ~/.zshrc
-echo "alias ll='ls -la'" >> ~/.zshrc
-echo "alias su='sudo -i'" >> ~/.zshrc
-echo "alias .="cd .."" >> ~/.zshrc
-echo "alias ..="cd ../.."" >> ~/.zshrc
-echo "alias ...="cd ../../.."" >> ~/.zshrc
+echo "alias ${SHELL}rc='vim ~/.${SHELL}rc'" >> ~/.${SHELL}rc
+echo "alias ll='ls -la'" >> ~/.${SHELL}rc
+echo "alias su='sudo -i'" >> ~/.${SHELL}rc
+echo "alias .="cd .."" >> ~/.${SHELL}rc
+echo "alias ..="cd ../.."" >> ~/.${SHELL}rc
+echo "alias ...="cd ../../.."" >> ~/.${SHELL}rc
