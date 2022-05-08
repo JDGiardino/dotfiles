@@ -3,18 +3,18 @@
 
 #Determine which shell
 SHELL=$(which $SHELL)
-if [ $SHELL == "/bin/bash" ]; then
+if [[ $SHELL == "/bin/bash" ]]; then
   SHELL=bash
 fi
-if [ $SHELL == "/bin/zsh" ]; then
+if [[ $SHELL == "/bin/zsh" ]]; then
   SHELL=zsh
 fi
 
-echo $SHELL
+echo -e "Your shell is $SHELL"
 
 
 #Homebrew
-if ! which brew > /dev/null; then
+if ! which brew; then
 	read -p "Homebrew is a package manager used for installing dependencies and is required for running the remainder of this script.  Continue and install Homebrew? [y/N] " response
 	if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
     echo -e "Installing Homebrew\n....."
@@ -62,8 +62,7 @@ fi
 
 #aliases
 echo "alias ${SHELL}rc='vim ~/.${SHELL}rc'" >> ~/.${SHELL}rc
-echo "alias ll='ls -la'" >> ~/.${SHELL}rc
-echo "alias su='sudo -i'" >> ~/.${SHELL}rc
-echo "alias .="cd .."" >> ~/.${SHELL}rc
-echo "alias ..="cd ../.."" >> ~/.${SHELL}rc
-echo "alias ...="cd ../../.."" >> ~/.${SHELL}rc
+echo "alias reload=source ~/.${SHELL}rc" >> ~/.${SHELL}rc
+while read alias; do
+  echo "$alias">> ~/.${SHELL}rc
+done < aliases.sh
