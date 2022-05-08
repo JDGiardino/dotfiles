@@ -66,3 +66,22 @@ echo "alias reload=source ~/.${SHELL}rc" >> ~/.${SHELL}rc
 while read alias; do
   echo "$alias">> ~/.${SHELL}rc
 done < aliases.sh
+
+
+#installPackage()
+#{
+#  if ! which $1; then
+#    read -p "$2 Continue and install $1? [y/N] " response
+#    if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
+#      echo -e "Installing $1\n....."
+#      $3
+#    else
+#      echo -e "Skipping installing $1\n..."
+#    fi
+#  else
+#    echo -e "$1 is already installed!"
+#  fi
+#}
+#
+#brewINSTALL=$(brew install pyenv)
+#installPackage brew test_string brewINSTALL
